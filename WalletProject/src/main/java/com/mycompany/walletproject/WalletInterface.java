@@ -40,6 +40,11 @@ public class WalletInterface extends javax.swing.JFrame {
         });
 
         saleButton.setText("Sale");
+        saleButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saleButtonActionPerformed(evt);
+            }
+        });
 
         InputOfAmount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -136,8 +141,25 @@ public class WalletInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_purchaseButtonActionPerformed
 
     private void InputOfAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InputOfAmountActionPerformed
-        // TODO add your handling code here:
+     
     }//GEN-LAST:event_InputOfAmountActionPerformed
+
+    private void saleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleButtonActionPerformed
+           //Creacion del Id random
+        int idRandom = 10000 + random.nextInt(90000); 
+        //tipo de transaccion en el caso de pulsar purchase
+        String typeOfTransaction = "Sale";
+        // sacar hora y fehca de mi sistema hora y fecha
+         LocalDateTime ahora = LocalDateTime.now();
+         DateTimeFormatter dateAndTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+         String currentDateAndTime = ahora.format(dateAndTime);
+         //variable para obetener costo del prudcto
+         double amountOfTransaction= Double.valueOf(InputOfAmount.getText());
+         //añadir a la tabla lo creado 
+         mt.addRow(new Object[]{idRandom,typeOfTransaction,currentDateAndTime,amountOfTransaction});
+         // esto hace que el lugar para ingresar el monto quede vacio 
+         InputOfAmount.setText("");
+    }//GEN-LAST:event_saleButtonActionPerformed
 
     /**
      * @param args the command line arguments
