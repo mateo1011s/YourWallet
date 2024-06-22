@@ -125,19 +125,17 @@ public class WalletInterface extends javax.swing.JFrame {
 
     private void purchaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_purchaseButtonActionPerformed
         //Creacion del Id random
-        int randomID = randomNumberForID(0);
+        int randomID = randomNumberForID();
         //tipo de transaccion en el caso de pulsar purchase
         String typeOfTransaction = "Purchase";
         // sacar hora y fehca de mi sistema hora y fecha
-         LocalDateTime ahora = LocalDateTime.now();
-         DateTimeFormatter dateAndTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-         String currentDateAndTime = ahora.format(dateAndTime);
+        String momentOfTransaction = dateAndHourOfTransaction();
          //variable para obetener costo del prudcto
-         double amountOfTransaction= Double.valueOf(InputOfAmount.getText());
+        double amountOfTransaction=amountOfMoneyForTransaction();
          //añadir a la tabla lo creado 
-         mt.addRow(new Object[]{randomID,typeOfTransaction,currentDateAndTime,amountOfTransaction});
+        mt.addRow(new Object[]{randomID,typeOfTransaction,momentOfTransaction,amountOfTransaction});
          // esto hace que el lugar para ingresar el monto quede vacio 
-         InputOfAmount.setText("");
+        InputOfAmount.setText("");
     }//GEN-LAST:event_purchaseButtonActionPerformed
 
     private void InputOfAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InputOfAmountActionPerformed
@@ -146,25 +144,36 @@ public class WalletInterface extends javax.swing.JFrame {
 
     private void saleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleButtonActionPerformed
            //Creacion del Id random
-        int randomID = randomNumberForID(0);
+        int randomID = randomNumberForID();
         //tipo de transaccion en el caso de pulsar purchase
         String typeOfTransaction = "Sale";
         // sacar hora y fehca de mi sistema hora y fecha
-         LocalDateTime ahora = LocalDateTime.now();
-         DateTimeFormatter dateAndTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-         String currentDateAndTime = ahora.format(dateAndTime);
+        String momentOfTransaction = dateAndHourOfTransaction();
          //variable para obetener costo del prudcto
-         double amountOfTransaction= Double.valueOf(InputOfAmount.getText());
-         //añadir a la tabla lo creado 
-         mt.addRow(new Object[]{randomID,typeOfTransaction,currentDateAndTime,amountOfTransaction});
-         // esto hace que el lugar para ingresar el monto quede vacio 
-         InputOfAmount.setText("");
+        double amountOfTransaction=amountOfMoneyForTransaction();
+        //añadir a la tabla lo creado 
+        mt.addRow(new Object[]{randomID,typeOfTransaction,momentOfTransaction,amountOfTransaction});
+        // esto hace que el lugar para ingresar el monto quede vacio 
+        InputOfAmount.setText("");
     }//GEN-LAST:event_saleButtonActionPerformed
     //Cree esta funcion para los numeros random
-    public static int randomNumberForID(int randomID) {
+    public static int randomNumberForID() {
+        
         Random random = new Random(); 
         int idRandom = 10000 + random.nextInt(90000); 
         return idRandom;
+    }
+    //Funcion para obetener laa hora y fecha en el formato indicado
+    public static String dateAndHourOfTransaction(){
+        LocalDateTime rightNow = LocalDateTime.now();
+        DateTimeFormatter dateAndTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+        String currentDateAndTime= rightNow.format(dateAndTime);
+        return currentDateAndTime;
+    }
+    //funcion para obenter el monto ingresado en el input
+    public double amountOfMoneyForTransaction(){
+        double amountOfMoney = Double.valueOf(InputOfAmount.getText());
+        return amountOfMoney;
     }
     /**
      * @param args the command line arguments
