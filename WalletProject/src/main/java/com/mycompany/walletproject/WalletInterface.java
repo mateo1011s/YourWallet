@@ -1,5 +1,6 @@
 package com.mycompany.walletproject;
 
+import static com.mycompany.walletproject.WalletProject.randomNumberForID;
 import javax.swing.table.DefaultTableModel;
 import java.util.Random;
 import java.time.LocalDateTime;
@@ -8,8 +9,7 @@ import java.time.format.DateTimeFormatter;
 public class WalletInterface extends javax.swing.JFrame {
   
     DefaultTableModel mt = new DefaultTableModel();
-    Random random = new Random();  
-    
+      
     public WalletInterface() {
         initComponents();
         String idsOfColumns[]={"ID","Type","Date","Amount"};
@@ -77,7 +77,7 @@ public class WalletInterface extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(186, 186, 186)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
                 .addGap(179, 179, 179))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -96,9 +96,9 @@ public class WalletInterface extends javax.swing.JFrame {
                         .addGap(27, 27, 27)
                         .addComponent(InputOfAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(91, 91, 91)
+                        .addGap(36, 36, 36)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,7 +125,7 @@ public class WalletInterface extends javax.swing.JFrame {
 
     private void purchaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_purchaseButtonActionPerformed
         //Creacion del Id random
-        int idRandom = 10000 + random.nextInt(90000); 
+        int randomID = randomNumberForID(0);
         //tipo de transaccion en el caso de pulsar purchase
         String typeOfTransaction = "Purchase";
         // sacar hora y fehca de mi sistema hora y fecha
@@ -135,7 +135,7 @@ public class WalletInterface extends javax.swing.JFrame {
          //variable para obetener costo del prudcto
          double amountOfTransaction= Double.valueOf(InputOfAmount.getText());
          //añadir a la tabla lo creado 
-         mt.addRow(new Object[]{idRandom,typeOfTransaction,currentDateAndTime,amountOfTransaction});
+         mt.addRow(new Object[]{randomID,typeOfTransaction,currentDateAndTime,amountOfTransaction});
          // esto hace que el lugar para ingresar el monto quede vacio 
          InputOfAmount.setText("");
     }//GEN-LAST:event_purchaseButtonActionPerformed
@@ -146,7 +146,7 @@ public class WalletInterface extends javax.swing.JFrame {
 
     private void saleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleButtonActionPerformed
            //Creacion del Id random
-        int idRandom = 10000 + random.nextInt(90000); 
+        int randomID = randomNumberForID(0);
         //tipo de transaccion en el caso de pulsar purchase
         String typeOfTransaction = "Sale";
         // sacar hora y fehca de mi sistema hora y fecha
@@ -156,11 +156,16 @@ public class WalletInterface extends javax.swing.JFrame {
          //variable para obetener costo del prudcto
          double amountOfTransaction= Double.valueOf(InputOfAmount.getText());
          //añadir a la tabla lo creado 
-         mt.addRow(new Object[]{idRandom,typeOfTransaction,currentDateAndTime,amountOfTransaction});
+         mt.addRow(new Object[]{randomID,typeOfTransaction,currentDateAndTime,amountOfTransaction});
          // esto hace que el lugar para ingresar el monto quede vacio 
          InputOfAmount.setText("");
     }//GEN-LAST:event_saleButtonActionPerformed
-
+    //Cree esta funcion para los numeros random
+    public static int randomNumberForID(int randomID) {
+        Random random = new Random(); 
+        int idRandom = 10000 + random.nextInt(90000); 
+        return idRandom;
+    }
     /**
      * @param args the command line arguments
      */
