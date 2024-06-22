@@ -1,6 +1,5 @@
 package com.mycompany.walletproject;
 
-import static com.mycompany.walletproject.WalletProject.randomNumberForID;
 import javax.swing.table.DefaultTableModel;
 import java.util.Random;
 import java.time.LocalDateTime;
@@ -9,7 +8,8 @@ import java.time.format.DateTimeFormatter;
 public class WalletInterface extends javax.swing.JFrame {
   
     DefaultTableModel mt = new DefaultTableModel();
-      
+    WalletProject operation = new WalletProject();  
+    
     public WalletInterface() {
         initComponents();
         String idsOfColumns[]={"ID","Type","Date","Amount"};
@@ -29,6 +29,7 @@ public class WalletInterface extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaOfTransactions = new javax.swing.JTable();
+        totalOfMoney = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,6 +55,7 @@ public class WalletInterface extends javax.swing.JFrame {
 
         jLabel1.setText("Please enter the amount:");
 
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel2.setText("Welcome to you WALLET");
 
         jLabel3.setText("Total:");
@@ -71,41 +73,47 @@ public class WalletInterface extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tablaOfTransactions);
 
+        totalOfMoney.setText("100$");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(186, 186, 186)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
-                .addGap(179, 179, 179))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(127, 127, 127))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(146, 146, 146)
-                        .addComponent(purchaseButton)
-                        .addGap(70, 70, 70)
-                        .addComponent(saleButton))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(146, 146, 146)
+                                .addComponent(purchaseButton)
+                                .addGap(70, 70, 70)
+                                .addComponent(saleButton))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(118, 118, 118)
+                                .addComponent(jLabel1)
+                                .addGap(27, 27, 27)
+                                .addComponent(InputOfAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(36, 36, 36)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(totalOfMoney, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 130, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(118, 118, 118)
-                        .addComponent(jLabel1)
-                        .addGap(27, 27, 27)
-                        .addComponent(InputOfAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(142, 142, 142)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(40, 40, 40)
                 .addComponent(jLabel2)
-                .addGap(35, 35, 35)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(InputOfAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
@@ -115,8 +123,10 @@ public class WalletInterface extends javax.swing.JFrame {
                     .addComponent(saleButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(totalOfMoney))
                 .addGap(7, 7, 7))
         );
 
@@ -136,6 +146,11 @@ public class WalletInterface extends javax.swing.JFrame {
         mt.addRow(new Object[]{randomID,typeOfTransaction,momentOfTransaction,amountOfTransaction});
          // esto hace que el lugar para ingresar el monto quede vacio 
         InputOfAmount.setText("");
+         //operar el total
+        operation.purchaseOption(amountOfTransaction);
+        totalOfMoney.setText(String.valueOf(operation.result));
+        //hacer que el cursor vuela al input automaticamente
+        InputOfAmount.requestFocus();
     }//GEN-LAST:event_purchaseButtonActionPerformed
 
     private void InputOfAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InputOfAmountActionPerformed
@@ -155,6 +170,11 @@ public class WalletInterface extends javax.swing.JFrame {
         mt.addRow(new Object[]{randomID,typeOfTransaction,momentOfTransaction,amountOfTransaction});
         // esto hace que el lugar para ingresar el monto quede vacio 
         InputOfAmount.setText("");
+        //operar el total
+        operation.saleOption(amountOfTransaction);
+        totalOfMoney.setText(String.valueOf(operation.result));
+        //hacer que el cursor vuela al input automaticamente
+        InputOfAmount.requestFocus();
     }//GEN-LAST:event_saleButtonActionPerformed
     //Cree esta funcion para los numeros random
     public static int randomNumberForID() {
@@ -219,5 +239,6 @@ public class WalletInterface extends javax.swing.JFrame {
     private javax.swing.JButton purchaseButton;
     private javax.swing.JButton saleButton;
     private javax.swing.JTable tablaOfTransactions;
+    private javax.swing.JLabel totalOfMoney;
     // End of variables declaration//GEN-END:variables
 }
