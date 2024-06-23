@@ -4,6 +4,7 @@ import javax.swing.table.DefaultTableModel;
 import java.util.Random;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
 
 public class WalletInterface extends javax.swing.JFrame {
   
@@ -142,14 +143,19 @@ public class WalletInterface extends javax.swing.JFrame {
         String momentOfTransaction = dateAndHourOfTransaction();
          //variable para obetener costo del prudcto
         double amountOfTransaction=amountOfMoneyForTransaction();
-         //añadir a la tabla lo creado 
+        //verificar si hay fondos
+        if(operation.result>=amountOfTransaction){
+        //añadir a la tabla lo creado 
         mt.addRow(new Object[]{randomID,typeOfTransaction,momentOfTransaction,amountOfTransaction});
          // esto hace que el lugar para ingresar el monto quede vacio 
         InputOfAmount.setText("");
          //operar el total
         operation.purchaseOption(amountOfTransaction);
-        totalOfMoney.setText(String.valueOf(operation.result));
+        totalOfMoney.setText(String.valueOf(operation.result)+"$");
         //hacer que el cursor vuela al input automaticamente
+        }else{
+        JOptionPane.showMessageDialog(null,"Oops, you don't have enough funds, you can't carry out this transaction,");
+        }
         InputOfAmount.requestFocus();
     }//GEN-LAST:event_purchaseButtonActionPerformed
 
@@ -172,7 +178,7 @@ public class WalletInterface extends javax.swing.JFrame {
         InputOfAmount.setText("");
         //operar el total
         operation.saleOption(amountOfTransaction);
-        totalOfMoney.setText(String.valueOf(operation.result));
+        totalOfMoney.setText(String.valueOf(operation.result)+"$");
         //hacer que el cursor vuela al input automaticamente
         InputOfAmount.requestFocus();
     }//GEN-LAST:event_saleButtonActionPerformed
