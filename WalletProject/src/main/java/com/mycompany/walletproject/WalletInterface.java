@@ -190,25 +190,18 @@ public class WalletInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void purchaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_purchaseButtonActionPerformed
-        //Creacion del Id random
         int randomID = randomNumberForID();
-        //tipo de transaccion en el caso de pulsar purchase
-        String typeOfTransaction = "Purchase";
-        // sacar hora y fehca de mi sistema hora y fecha
+        String typeOfTransaction = "Purchase";    
         String momentOfTransaction = dateAndHourOfTransaction();
-         //variable para obetener costo del prudcto
         double amountOfTransaction=amountOfMoneyForTransaction();
-        //verificar si hay fondos
+        
         if(operation.result>=amountOfTransaction){
-        //añadir a la tabla lo creado 
         mt.addRow(new Object[]{randomID,typeOfTransaction,momentOfTransaction,amountOfTransaction});
-         // esto hace que el lugar para ingresar el monto quede vacio 
         InputOfAmount.setText("");
-         //operar el total
         operation.purchaseOption(amountOfTransaction);
         totalOfMoney.setText(String.valueOf(operation.result)+"$");
-        //hacer que el cursor vuela al input automaticamente
-        }else{
+        }
+        else{
         JOptionPane.showMessageDialog(null,"Oops, you don't have enough funds, you can't carry out this transaction,");
         }
         InputOfAmount.requestFocus();
@@ -219,52 +212,36 @@ public class WalletInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_InputOfAmountActionPerformed
 
     private void saleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleButtonActionPerformed
-           //Creacion del Id random
         int randomID = randomNumberForID();
-        //tipo de transaccion en el caso de pulsar purchase
         String typeOfTransaction = "Sale";
-        // sacar hora y fehca de mi sistema hora y fecha
         String momentOfTransaction = dateAndHourOfTransaction();
-         //variable para obetener costo del prudcto
         double amountOfTransaction=amountOfMoneyForTransaction();
-        //añadir a la tabla lo creado 
         mt.addRow(new Object[]{randomID,typeOfTransaction,momentOfTransaction,amountOfTransaction});
-        // esto hace que el lugar para ingresar el monto quede vacio 
         InputOfAmount.setText("");
-        //operar el total
         operation.saleOption(amountOfTransaction);
         totalOfMoney.setText(String.valueOf(operation.result)+"$");
-        //hacer que el cursor vuela al input automaticamente
         InputOfAmount.requestFocus();
     }//GEN-LAST:event_saleButtonActionPerformed
-    //Cree esta funcion para los numeros random
+    
     public static int randomNumberForID() {
-        
         Random random = new Random(); 
         int idRandom = 10000 + random.nextInt(90000); 
         return idRandom;
     }
-    //Funcion para obetener laa hora y fecha en el formato indicado
+   
     public static String dateAndHourOfTransaction(){
         LocalDateTime rightNow = LocalDateTime.now();
         DateTimeFormatter dateAndTime = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         String currentDateAndTime= rightNow.format(dateAndTime);
         return currentDateAndTime;
     }
-    //funcion para obenter el monto ingresado en el input
+    
     public double amountOfMoneyForTransaction(){
         double amountOfMoney = Double.valueOf(InputOfAmount.getText());
         return amountOfMoney;
     }
-    /**
-     * @param args the command line arguments
-     */
+ 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -281,9 +258,7 @@ public class WalletInterface extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(WalletInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new WalletInterface().setVisible(true);
